@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:world_time/services/world_time.dart';
+// import 'package:source_span/source_span.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -14,7 +16,10 @@ class _LoadingState extends State<Loading> {
     WoldTime instance = WoldTime( location: 'Nairobi', flag: 'kenya.png', url: 'Africa/Nairobi');
     await instance.getTime();
     Navigator.pushReplacementNamed(context, '/home', arguments: {
-      'locat'
+      'location': instance.location,
+      'flag': instance.flag,
+      'time': instance.time,
+      'isDayTime': instance.isDayTime
     });
   }
 
@@ -28,10 +33,13 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(50),
-        child: Text('Loading ...'),
-      ),
+      backgroundColor: Colors.blue[900],
+      body: Center(
+        child: SpinKitPouringHourglass(
+          color: Colors.white,
+          size: 50.0,
+        ),
+      )
     );
   }
 }
